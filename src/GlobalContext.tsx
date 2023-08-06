@@ -1,7 +1,6 @@
 import React, { createContext, useState, useCallback } from 'react';
 
-// Step 1: Define the TypeScript interfaces as mentioned above
-
+// Interface for Global Context
 interface GlobalContextType {
   language: string;
   user: User | null;
@@ -23,24 +22,25 @@ interface Message {
   text: string;
 }
 
-// Step 2: Create the context
+// Global Context, props made available by Provider
 const GlobalContext = createContext<GlobalContextType>({
   language: "en",
   user: null,
   token: null,
   message: null,
-  setLanguage: () => { },
-  setUser: () => { },
-  setToken: () => { },
-  setMessage: () => { },
+  setLanguage: () => {},
+  setUser: () => {},
+  setToken: () => {},
+  setMessage: () => {},
 });
 
-// Step 3: Create the provider component
+// Interface for Global Provider
 interface GlobalProviderProps {
   children: React.ReactNode;
 }
 
-const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+// Global Provider Component, needs to be wrapped around App Component
+const GlobalProvider: React.FC<GlobalProviderProps> = (props) => {
   const [language, setLanguage] = useState<string>("en");
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
@@ -59,7 +59,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setMessage,
       }}
     >
-      {children}
+      {props.children}
     </GlobalContext.Provider>
   );
 };
