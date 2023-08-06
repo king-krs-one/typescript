@@ -54,6 +54,8 @@ const simulateLogin = (username, password) => {
 const LoginComponent = (props) => {
 
   const { setUser, setToken, setMessage } = useContext(GlobalContext)
+
+  // loading props coming from HOC withLoading
   const { loading, startLoading, stopLoading } = props;
 
   const [username, setUsername] = useState('');
@@ -61,7 +63,7 @@ const LoginComponent = (props) => {
 
   const handleLogin = async () => {
     try {
-      startLoading(); // Start loading before making the request
+      startLoading && startLoading(); // Start loading before making the request
       const response = await simulateLogin(username, password);
 
       // Store the token in local storage or a more secure method like cookies
@@ -69,7 +71,6 @@ const LoginComponent = (props) => {
 
       setUser(response.user)
       setToken(response.token)
-      debugger
       setMessage(response.message)
 
       // We dont need anymore a callback function 
@@ -86,14 +87,13 @@ const LoginComponent = (props) => {
     } catch (error) {
       setUser(null)
       setToken(null)
-      debugger
       setMessage({
         type: "error",
         text: error.message
       })
 
     } finally {
-      stopLoading(); // Stop loading after the request completes (success or error)
+      stopLoading && stopLoading(); // Stop loading after the request completes (success or error)
     }
   };
 
@@ -117,4 +117,5 @@ const LoginComponent = (props) => {
   );
 };
 
+// export default LoginComponent;
 export default withLoading(LoginComponent);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import PanelMouseTrackerJSX from './Components/MouseTrackerJSX';
@@ -7,7 +7,7 @@ import MyComponentWithLoadingJSX from './Components/LoadingJSX';
 import MyComponentWithLoadingTSX from './Components/LoadingTSX';
 import LoginComponent from './Components/LoginJSX';
 import Calculator, { examples } from './Components/Calculator';
-import { GlobalProvider, GlobalContext } from './GlobalContext';
+import { GlobalContext } from './GlobalContext';
 
 
 function App() {
